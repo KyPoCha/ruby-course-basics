@@ -8,8 +8,9 @@ module ItemContainer
   end
 
   module InstanceMethods
-    def add_item(item)
-      @items.push(item) unless item.price < self.class.min_price
+    def add_item(*items)
+      # items.each { |item| @items.push(item) unless item.price < self.class.min_price }
+      @items += items
     end
 
     def pop_item
