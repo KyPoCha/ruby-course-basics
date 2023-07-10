@@ -1,42 +1,31 @@
-require_relative 'cart'
-require_relative 'item'
-require_relative 'real_item'
-require_relative 'virtual_item'
-require_relative 'string'
-require_relative 'antique_item'
-require 'active_support/core_ext/array'
+require_relative 'store_application'
 
 # # Dir["*/2/*.rb"].each { |file| p file[14..] }
 # Dir["*/2/*.rb"].each { |file| require_relative file[14..] unless file[14..].nil?}
 
+StoreApplication.set do |app|
+  app.name        = 'Ruby App'
+  app.environment = :development
+  app.admin do |admin|
+    admin.email    = 'kirillpolishchuk02@gmail.com',
+    admin.login    = 'admin'
+    admin.password = 'zgoahvpjvlwdvjcg'
+  end
+end
+
 @items = []
-@items << VirtualItem.new({
+@items << VirtualItem.new('virtual',
                             price: 240,
                             weight: 290,
-                            name: 'virtual'
-                          })
-@items << AntiqueItem.new({
+                          )
+@items << AntiqueItem.new('antique',
                             price: 200,
-                            weight: 200,
-                            name: 'antique'
-                          })
+                            weight: 200
+                          )
 
-@items << RealItem.new({
-                            price: 240,
-                            weight: 290,
-                            name: 'car'
-                          })
-
-@items << RealItem.new({
-                         price: 270,
-                         weight: 300,
-                         name: 'bike'
-                       })
-@items << RealItem.new({
-                     price: 250,
-                     weight: 310,
-                     name: 'cycle'
-                   })
+@items << RealItem.new(name: 'car', price: 240, weight: 290)
+@items << RealItem.new(name: 'bike', price: 270, weight: 300)
+@items << RealItem.new(name:'cycle', price: 250, weight: 310)
 
 cart = Cart.new("amg")
 cart.add_item RealItem.new({
@@ -54,15 +43,21 @@ cart.add_item RealItem.new({
                              weight: 290,
                              name: 'car'
                            })
-p cart.all_cars
-p cart.all_bikes
+p cart.send :all_cars
 
-p cart.kind_of? Cart
-p @items.first.kind_of? Item
+order = Order.new
+@items.each { |el| order.add_item el }
+order.place
 
-p @items.first.respond_to? :price
-p @items.first.send :tax
-p @items.first.tax
+# p cart.all_cars
+# p cart.all_bikes
+#
+# p cart.kind_of? Cart
+# p @items.first.kind_of? Item
+#
+# p @items.first.respond_to? :price
+# p @items.first.send :tax
+# p @items.first.tax
 
 # cart = Cart.new
 # item1 = Item.new({price: 200.0, height: 20, weight: 30})

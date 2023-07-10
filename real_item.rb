@@ -2,7 +2,7 @@ class RealItem < Item
   attr_accessor :weight
   def initialize(options = nil)
     @weight = options[:weight]
-    super
+    super(options[:name], options)
   end
 
   def info
