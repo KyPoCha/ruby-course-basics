@@ -1,4 +1,4 @@
-require_relative 'item_container'
+require_relative '../../ule/item_container'
 require_relative 'item_not_supported_exception'
 require_relative 'virtual_item'
 require_relative 'antique_item'

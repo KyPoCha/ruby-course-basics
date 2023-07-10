@@ -13,6 +13,11 @@ StoreApplication.set do |app|
   end
 end
 
+puts StoreApplication.name
+StoreApplication.name = 'New Name'
+
+puts StoreApplication.name
+
 @items = []
 @items << VirtualItem.new('virtual',
                             price: 240,
@@ -47,7 +52,10 @@ p cart.send :all_cars
 
 order = Order.new
 @items.each { |el| order.add_item el }
-order.place
+
+# p Time.now.utc
+# p Time.now.to_i
+# order.place
 
 # p cart.all_cars
 # p cart.all_bikes

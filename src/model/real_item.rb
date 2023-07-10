@@ -1,3 +1,4 @@
+require_relative 'item'
 class RealItem < Item
   attr_accessor :weight
   def initialize(options = nil)
