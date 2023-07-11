@@ -12,11 +12,16 @@ class Item
 
   def info
     if block_given?
-      yield real_price.to_s, :real_price.to_s
-      yield name.to_s, :name.to_s
+      yield real_price.to_s
+      yield name.to_s
     else
       puts 'Nothing to show'
     end
+  end
+
+  def self.show_info_about(attribute, block)
+    @@show_info_about ||= {}
+    @@show_info_about[attribute] = block
   end
 
   def self.discount

@@ -8,6 +8,7 @@ module ItemContainer
   end
 
   module InstanceMethods
+    attr_reader :items
     def add_item(*items)
       # items.each { |item| @items.push(item) unless item.price < self.class.min_price }
       @items += items
@@ -15,6 +16,10 @@ module ItemContainer
 
     def pop_item
       @items.pop
+    end
+
+    def clear_items
+      @items.clear
     end
 
     def remove_item(item_name)

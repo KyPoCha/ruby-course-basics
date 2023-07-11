@@ -1,6 +1,8 @@
 require_relative 'item'
 class RealItem < Item
   attr_accessor :weight
+  show_info_about :weight, lambda {|attr| attr > 10}
+
   def initialize(options = nil)
     @weight = options[:weight]
     super(options[:name], options)
@@ -8,7 +10,9 @@ class RealItem < Item
 
   def info
     if block_given?
-      yield weight.to_s, :weight.to_s
+      if @@show_info_about[:weight].call(weight) || !@@show_info_about[:weight]
+        yield weight
+      end
       super
     end
   end
